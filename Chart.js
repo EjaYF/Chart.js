@@ -2037,29 +2037,29 @@
 
 			//Iterate through each of the datasets, and build this into a property of the chart
 			helpers.each(data.datasets,function(dataset,datasetIndex){
-
-				var datasetObject = {
-					label : dataset.label || null,
-					fillColor : dataset.fillColor,
-					strokeColor : dataset.strokeColor,
-					bars : []
-				};
-
-				this.datasets.push(datasetObject);
-
-				helpers.each(dataset.data,function(dataPoint,index){
-					//Add a new point for each piece of data, passing any required data to draw.
-					datasetObject.bars.push(new this.BarClass({
-						value : dataPoint,
-						label : data.labels[index],
-						datasetLabel: dataset.label,
-						strokeColor : dataset.strokeColor,
+				if (dataset != null) {
+					var datasetObject = {
+						label : dataset.label || null,
 						fillColor : dataset.fillColor,
-						highlightFill : dataset.highlightFill || dataset.fillColor,
-						highlightStroke : dataset.highlightStroke || dataset.strokeColor
-					}));
-				},this);
-
+						strokeColor : dataset.strokeColor,
+						bars : []
+					};
+	
+					this.datasets.push(datasetObject);
+	
+					helpers.each(dataset.data,function(dataPoint,index){
+						//Add a new point for each piece of data, passing any required data to draw.
+						datasetObject.bars.push(new this.BarClass({
+							value : dataPoint,
+							label : data.labels[index],
+							datasetLabel: dataset.label,
+							strokeColor : dataset.strokeColor,
+							fillColor : dataset.fillColor,
+							highlightFill : dataset.highlightFill || dataset.fillColor,
+							highlightStroke : dataset.highlightStroke || dataset.strokeColor
+						}));
+					},this);
+				}
 			},this);
 
 			this.buildScale(data.labels);
